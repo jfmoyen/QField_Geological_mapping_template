@@ -16,26 +16,19 @@ QField is a portable version of QGIS. I am using it for geological mapping, usin
   The database, stored as a geopackage, which ensures better data integrity, and allows to move everything as one single file. Historically, the table fields are inherited from FieldMove (and largely remain compatible with FM's tables), which is why they have a series of probably unneeded fields.
   
    The database is made of 6 tables:
-  - **Localities** records individual sites visited during field work. Typically a site would correspond to an entry in your field notes. The concept is more relevant for "spot" work, driving or walking etween independent outcrops than proper mapping.
+
+  ### Data tables
+  - **Localities** records individual sites visited during field work. Typically a site would correspond to an entry in your field notes. The concept is more relevant for "spot" work, driving or walking between independent outcrops than proper mapping.
     In the database, *localities* are used as a key identifier to which individual samples, photos or structural readings are attached.
   
-| Field name    | Type | Comments |
-| -------- | ------- | ------- |
-| January  | $250    | |
-| February | $80     | |
-| March    | $420    | |
+
 
 - **Structural readings** is the most complex table. One record corresponds to one (compass) reading; each is individually located and associated to plane and line orientation, as well as its meaning and lithology. Readings have several properties:
 -  Their *shape* (field Geometry): are we recording a plane (e.g. a bedding, a fault...), a line (a lineation), both together (a fault with slickenslides, a foliation with lineation) or none at all (useful for mapping when you are just trying to record a rock occurence to constrain a contact)?
   - A *meaning* (field Meaning): a reading could be for instance the main rock fabric (what you will typically show on your map with a dip symbol, which generally will follow the contacts), a structure, a distinct dyke, etc.
   - a *nature* (field Nature): more precisions. For instance a rock fabric could be a foliation, a bedding, and overturned bedding...
 
-A list of possible values and combination is stored in the table Structure_types. By editing this table, you can add more types. You could, for instance, add a new type of planar fabric to record a second cleavage (S2) as follows:
-| Field     | Value | 
-| -------- | ------- | 
-| ObjectGeom  | Plane    | 
-| ObjectType | Rock fabric   | 
-| ObjectNature    | S2   | 
+
 
 - Lithology
 - Various metadata such as X, Y, time of reading, etc.
@@ -45,10 +38,18 @@ A list of possible values and combination is stored in the table Structure_types
  
   - **Samples** for, obvisiously, samples that you collect. Samples are attached to a locality, and they have a lithology.
 
+### Reference tables
  Two geometry-less tables provide "dictionaries" that are used in the attribute forms of the four tables above. These are the tables you should edit if you want, for instance, to add a new lithology (this cannot be done directly from the other tables).
  
   -  **Rock_units**
   -  **Structure_types** 
+
+A list of possible values and combination is stored in the table Structure_types. By editing this table, you can add more types. You could, for instance, add a new type of planar fabric to record a second cleavage (S2) as follows:
+| Field     | Value | 
+| -------- | ------- | 
+| ObjectGeom  | Plane    | 
+| ObjectType | Rock fabric   | 
+| ObjectNature    | S2   |
 
   ## The QGIS project
   The .qgs project links the different tables and provides attribute forms and symbology. It should be regarded as a base for your work -- you should add, for instance, more basemaps, perhaps detailed imagery, etc. 
