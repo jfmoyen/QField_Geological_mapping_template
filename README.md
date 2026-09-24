@@ -45,6 +45,14 @@ A list of possible values and combination is stored in the table Structure_types
  
   - **Samples** for, obvisiously, samples that you collect. Samples are attached to a locality, and they have a lithology.
 
- Two geometry-less tables provide "dictionaries" that are used in the attribute forms of the four tables above.
+ Two geometry-less tables provide "dictionaries" that are used in the attribute forms of the four tables above. These are the tables you should edit if you want, for instance, to add a new lithology (this cannot be done directly from the other tables).
+ 
   -  **Rock_units**
   -  **Structure_types** 
+
+  ## The QGIS project
+  The .qgs project links the different tables and provides attribute forms and symbology. It should be regarded as a base for your work -- you should add, for instance, more basemaps, perhaps detailed imagery, etc. 
+  - **Linking** of tables is made with *joins*. For instance, the color of every feature is defined by its lithology, and taken from the color defined in *rock_units*. If you change the color there, it will be automatically mirrored elsewhere.
+  - **Input forms** simplify the data input in the field. All lithology fields use drop-down lists (populated from the rock_units table). Tables mostly have sensible defaults for things like date/time, year, locality (the nearest point from the *localities* layer at the time of feature creation, meaning that you should, generally speaking, first create a locality before recording anything else). The most complex form is probably the one for *structural_readings*: strike will be calculated automatically from dip drection, pitch will be calculated from the other values, line or plane geometries will be hidden as a function of the geometry type, etc.
+  - **Symbology** takes into account these properties. Color is defined based on the lithology, etc. Here too, the most detailed symbology is for structural readings, as it included rotation of symbols, colouring, different symbols for different types of structures, etc. You should probably customize this symbology based on your own needs! The (svg) symbols used are integrated in the project, to keep everything portable.
+    
